@@ -1,10 +1,16 @@
 /*
-  
 	Written in 2016 by Steven Valsesia <steven.valsesia@gmail.com>
 
-	Convert 24-bit RGB pixels to 16-bit BGR565 pixels
+	This part was under CC0 Licenses and was written by Glenn Randers-Pehrson:
+		bgr565 = (unsigned short)(blue * 31.0 / 255.0) |
+                 	 (unsigned short)(green * 63.0 / 255.0) << 5 |
+                 	 (unsigned short)(red * 31.0 / 255.0) << 11;
+
+
+	This program convert 24-bit raw RGB pixels to 16-bit BGR565 pixels
 
       	RawImageTranslator file.rgb888 file.bgr565
+
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -60,13 +66,14 @@ int main(int argc, char **argv)
         green = buf[1];
         blue = buf[2];
 
+	// This part was under CC0 Licenses and was written by Glenn Randers-Pehrson
         bgr565 = (unsigned short)(blue * 31.0 / 255.0) |
                  (unsigned short)(green * 63.0 / 255.0) << 5 |
                  (unsigned short)(red * 31.0 / 255.0) << 11;
 
 		fwrite(&bgr565, 2, 1, output);
 	}
-	
+
 	printf("Done, %s : %ld bytes\n", argv[2], ftell(output));
 	printf("Have fun\n");
 
